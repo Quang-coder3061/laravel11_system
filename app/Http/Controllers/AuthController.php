@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role; // Đảm bảo import Role
 
-
 class AuthController extends Controller
 {
 

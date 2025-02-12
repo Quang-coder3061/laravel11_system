@@ -23,7 +23,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-    protected $table = 'tbl_users';
+    protected $table = 'tbl_users'; // Khai báo tên bảng
     /**
      * The attributes that are mass assignable.
      *
@@ -40,7 +40,8 @@ class User extends Authenticatable
     // Quan hệ nhiều-nhiều với bảng roles
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'tbl_role_user');
+        //return $this->belongsToMany(Role::class, 'tbl_role_user');
+        return $this->belongsToMany(Role::class, 'tbl_role_user', 'user_id', 'role_id');
     }
 
     /**
@@ -50,6 +51,7 @@ class User extends Authenticatable
      * @return bool
      */
 
+    // Phương thức kiểm tra quyền
     public function hasRole($role)
     {
         return $this->roles->contains('name', $role);

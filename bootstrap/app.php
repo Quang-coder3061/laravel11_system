@@ -12,26 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+        //
+        $middleware->alias([
+            'permission' => \App\Http\Middleware\CheckPermission::class,
+            'role' => \App\Http\Middleware\CheckRole::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
-$app->middleware([
-    // Middleware global
-]);
-
-$app->middlewareGroups([
-    'web' => [
-        // Middleware cho nhóm web
-        
-    ],
-    'api' => [
-        // Middleware cho nhóm api
-    ],
-]);
-
-//$app->routeMiddleware([
-    // Middleware cho route
-    //'permission' => \App\Http\Middleware\CheckPermission::class,
-    //'role' => \App\Http\Middleware\CheckRole::class,
-//]);
