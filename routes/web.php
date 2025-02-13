@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckRole;
 
 
@@ -23,11 +24,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected routes
 Route::middleware('auth')->group(function () {
+    // Các route yêu cầu đăng nhập
+    Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
+    Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     // Admin routes
     // Đăng ký middleware trong bootstrap/app.php trước!
     Route::middleware('role:admin')->group(function () {
         //Route::get('/admin', [AdminController::class, 'index']);
-        //Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
         Route::get('/admin/approve-users', [AdminController::class, 'approveUsers'])->name('admin.approve-users');
         Route::post('/admin/assign-role', [AdminController::class, 'assignRole'])->name('admin.assign-role');
     });

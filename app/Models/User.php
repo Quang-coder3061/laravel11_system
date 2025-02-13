@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\UserProfile; // Thêm dòng này
 
 /**
  * Class User
@@ -55,6 +56,14 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         return $this->roles->contains('name', $role);
+    }
+
+    /**
+     * Quan hệ 1-1 với UserProfile.
+     */
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
     }
 
     public function hasPermission($slug)

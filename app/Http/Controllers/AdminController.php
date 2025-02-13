@@ -24,8 +24,8 @@ class AdminController extends Controller
     public function assignRole(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'role_id' => 'required|exists:roles,id',
+            'user_id' => 'required|exists:tbl_users,id',
+            'role_id' => 'required|exists:tbl_roles,id',
         ]);
 
         $user = User::find($request->user_id);
