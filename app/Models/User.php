@@ -61,7 +61,7 @@ class User extends Authenticatable
     // Quan hệ 1-1 với UserProfile (đã đổi tên bảng)
     public function profile()
     {
-        return $this->hasOne(UserProfile::class, 'user_id', 'id');
+        return $this->hasOne(UserProfile::class);
     }
 
     public function hasPermission($slug)
