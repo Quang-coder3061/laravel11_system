@@ -58,12 +58,10 @@ class User extends Authenticatable
         return $this->roles->contains('name', $role);
     }
 
-    /**
-     * Quan hệ 1-1 với UserProfile.
-     */
+    // Quan hệ 1-1 với UserProfile (đã đổi tên bảng)
     public function profile()
     {
-        return $this->hasOne(UserProfile::class);
+        return $this->hasOne(UserProfile::class, 'user_id', 'id');
     }
 
     public function hasPermission($slug)

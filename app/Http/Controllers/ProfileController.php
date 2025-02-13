@@ -28,6 +28,7 @@ class ProfileController extends Controller
         ]);
 
         // Sử dụng phương thức profile() đã được định nghĩa trong User
+        // Tạo hoặc cập nhật profile
         Auth::user()->profile()->create($request->all());
 
         return redirect()->route('profile.show');

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserProfile extends Model
 {
+    protected $table = 'tbl_user_profiles'; // Khai báo tên bảng
+
     protected $fillable = [
         'user_id',
         'type_information',
@@ -23,5 +25,6 @@ class UserProfile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+        //return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
