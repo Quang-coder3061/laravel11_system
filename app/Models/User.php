@@ -23,6 +23,7 @@ use App\Models\UserProfile; // Thêm dòng này
 
 class User extends Authenticatable
 {
+
     use HasFactory, Notifiable;
     protected $table = 'tbl_users'; // Khai báo tên bảng
     /**
@@ -61,9 +62,10 @@ class User extends Authenticatable
     // Quan hệ 1-1 với UserProfile (đã đổi tên bảng)
     public function profile()
     {
-        return $this->hasOne(UserProfile::class);
+        //return $this->hasOne(UserProfile::class);
+        return $this->hasOne(UserProfile::class, 'user_id', 'id');
     }
-
+    
     public function hasPermission($slug)
     {
         foreach ($this->roles as $role) {

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserProfile;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
+use App\Models\UserProfile;
 
 class ProfileController extends Controller
 {
+
     // Hiển thị form thêm thông tin
     public function create()
     {
-        return view('profile.create');
+        return view('profile.create'); // Trả về view create.blade.php
     }
 
     // Lưu thông tin
@@ -27,10 +27,14 @@ class ProfileController extends Controller
             'address' => 'required',
         ]);
 
+        // Kiểm tra vai trò và chuyển hướng
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
         // Sử dụng phương thức profile() đã được định nghĩa trong User
         // Tạo hoặc cập nhật profile
-        Auth::user()->profile()->create($request->all());
+        $user->profile()->create($request->all());
 
+        //return redirect()->route('profile.show');
         return redirect()->route('profile.show');
     }
 

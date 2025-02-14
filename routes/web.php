@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckRole;
 
@@ -22,12 +23,25 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Protected routes
-Route::middleware('auth')->group(function () {
-    // Các route yêu cầu đăng nhập
+//test-view
+Route::get('/test-view', function () {
+    return view('profile.edit11');
+});
+
+
+// Sử dụng middleware auth để yêu cầu đăng nhập
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+});
+
+// Protected routes
+Route::middleware('auth')->group(function () {
+    // Các route yêu cầu đăng nhập
+    // Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
+    // Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
+    // Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     // Admin routes
     // Đăng ký middleware trong bootstrap/app.php trước!
     Route::middleware('role:admin')->group(function () {

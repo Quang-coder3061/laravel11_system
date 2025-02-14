@@ -6,6 +6,10 @@
         <form action="{{ route('profile.store') }}" method="POST">
             @csrf
             <div class="mb-3">
+                <label class="form-label">Loại thông tin</label>
+                <input type="text" name="type_information" class="form-control" required>
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Số CCCD</label>
                 <input type="text" name="citizen_id" class="form-control" required>
             </div>
