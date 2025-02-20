@@ -15,11 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            //            $table->string('email_verified_at')->unique();
+            $table->timestamp('email_verified_at')->nullable(); // Thêm nullable()
             $table->string('password');
+            //            $table->string('remember_token');
+            $table->rememberToken();
             $table->string('nfc_uid')->nullable(); // Cho NFC
-            $table->boolean('is_approved');
+            $table->boolean('is_approved')->default(false);
             $table->timestamps();
-        });   
+        });
     }
 
     /**

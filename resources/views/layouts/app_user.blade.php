@@ -11,12 +11,25 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Trang người dùng</a>
+            <a class="navbar-brand" href="/">Trang người dùng: {{ Auth::user()->name }}</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.create') }}">Thêm thông tin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.show') }}">Thông tin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('groups.create-request') }}">Tạo nhóm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('groups.create-child') }}">Tạo nhóm con</a>
+                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
                     </li>

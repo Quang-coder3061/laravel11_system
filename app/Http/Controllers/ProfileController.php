@@ -31,11 +31,10 @@ class ProfileController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
         // Sử dụng phương thức profile() đã được định nghĩa trong User
-        // Tạo hoặc cập nhật profile
+        // Tạo hoặc cập nhật profile để lưu thông tin
         $user->profile()->create($request->all());
-
         //return redirect()->route('profile.show');
-        return redirect()->route('profile.show');
+        return redirect()->route('profile.show'); // Không cần truyền $id
     }
 
     // Hiển thị thông tin (chỉ người dùng đó xem)
@@ -44,9 +43,21 @@ class ProfileController extends Controller
     //    $profile = Auth::user()->profile;
     //    return view('profile.show', compact('profile'));
     //}
-    public function show($id)
+
+    //public function show($id)
+    //{
+    //    $profile = UserProfile::findOrFail($id);
+    //    if ($profile->user_id !== Auth::id()) {
+    //        abort(403, 'Bạn không có quyền truy cập.');
+    //    }
+    //    return view('profile.show', compact('profile'));
+    //}
+
+    public function show()
     {
-        $profile = UserProfile::findOrFail($id);
+        // Lấy thông tin profile của người dùng hiện tại
+        $profile = Auth::user()->profile;
+        
         if ($profile->user_id !== Auth::id()) {
             abort(403, 'Bạn không có quyền truy cập.');
         }

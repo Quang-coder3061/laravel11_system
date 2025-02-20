@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+// import Group ở đầu file
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
@@ -65,7 +67,7 @@ class User extends Authenticatable
         //return $this->hasOne(UserProfile::class);
         return $this->hasOne(UserProfile::class, 'user_id', 'id');
     }
-    
+
     public function hasPermission($slug)
     {
         foreach ($this->roles as $role) {
@@ -74,5 +76,47 @@ class User extends Authenticatable
             }
         }
         return false;
+    }
+
+    public function groupRequests()
+    {
+        return $this->hasMany(GroupRequest::class, 'user_id');
+    }
+
+    public function groups()
+    {
+        // Quan hệ một-nhiều: Một User có nhiều Group
+        return $this->hasMany(Group::class, 'created_by');
+    }
+    
+    // Quan hệ để xác định user quản lý nhóm
+    public function managedGroups()
+    {
+        return $this->belongsToMany(Group::class, 'tbl_group_user', 'user_id', 'group_id')
+            ->wherePivot('is_manager', true);
+    }
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    // Nếu không sử dụng xác thực email, hãy bỏ qua trường này
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }
